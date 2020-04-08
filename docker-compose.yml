@@ -1,0 +1,16 @@
+version: '2' # specify docker-compose version
+
+# Define the services/containers to be run
+services:
+    main-ethereum:
+        image: ethereum/client-go:v1.9.0
+        container_name: "main-ethereum"
+        volumes:
+            - ./node:/root/.ethereum/
+        ports:
+            - "30303:30303"
+            - "30303:30303/udp"
+            - "8545:8545"
+            - "8546:8546"
+        command: --identity "main-ethereum" --syncmode "full" --cache 4096 --rpc --rpcaddr "0.0.0.0" --rpcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --ws --wsaddr "0.0.0.0"  --verbosity 6 --rpccorsdomain='*' --maxpeers 48 --mine --minerthreads 1 --miner.etherbase "0xf29dd4908b0dceea09c4404a7c524f305f5f41a0"  --miner.gaslimit 21000 --targetgaslimit 21000 --gasprice 8000000000
+
